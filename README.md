@@ -50,7 +50,7 @@ Navigate to the main project folder.
 
 Run the application using this command:
 
-python_app.py
+python app.py
 
 The application will start, and you will see a link (usually http://127.0.0.1:5000). Open this link in your web browser to use the tool.
 
