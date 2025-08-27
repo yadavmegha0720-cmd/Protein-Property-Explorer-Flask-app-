@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protein Property Explorer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-4">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">
+            Protein Property Explorer
+        </h1>
+        <p class="text-center text-gray-600 mb-8">
+            Upload a FASTA file to generate a hydropathy plot of your protein sequence.
+        </p>
+        
+        <form method="post" enctype="multipart/form-data" class="flex flex-col items-center space-y-4">
+            <div class="w-full">
+                <label class="block text-sm font-medium text-gray-700">
+                    Select a FASTA File
+                </label>
+                <input type="file" name="fasta_file" id="fasta_file" accept=".fasta,.fa" 
+                       class="mt-1 block w-full text-sm text-gray-500
+                              file:mr-4 file:py-2 file:px-4
+                              file:rounded-full file:border-0
+                              file:text-sm file:font-semibold
+                              file:bg-violet-50 file:text-violet-700
+                              hover:file:bg-violet-100"/>
+            </div>
+            
+            <button type="submit" 
+                    class="w-full px-4 py-2 bg-blue-600 text-white font-semibold rounded-full shadow-md
+                           hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+                           transition-colors duration-200">
+                Generate Plot
+            </button>
+        </form>
+
+        {% if plot_data %}
+            <div class="mt-8 p-6 bg-gray-50 rounded-lg shadow-inner">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">
+                    Hydropathy Plot for {{ sequence_name }}
+                </h2>
+                <img src="data:image/png;base64,{{ plot_data }}" alt="Hydropathy Plot" class="w-full rounded-md shadow-sm">
+            </div>
+        {% elif error %}
+            <div class="mt-8 p-4 bg-red-100 text-red-700 rounded-md">
+                <p>{{ error }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
